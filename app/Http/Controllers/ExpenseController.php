@@ -11,12 +11,12 @@ class ExpenseController extends Controller
     // display all expenses and percentages
     public function index()
     {
-        $expenses = Expense::orderBy('date', 'desc')->get();
-
-        // calculate total expenses
-        $totalExpenses = $expenses->sum('amount');
-        $percentages = Expense::calculatePercentage();
-
+        $expenses = Expense::orderBy('date', 'desc')->get()->toArray(); // Convertir a array
+    
+        // Calculate total expenses
+        $totalExpenses = $expenses ? array_sum(array_column($expenses, 'amount')) : 0; // Sumar montos
+        $percentages = Expense::calculatePercentage(); // Asumimos que esto devuelve un array con porcentajes
+    
         return Inertia::render('Expenses/Index', [
             'expenses' => $expenses,
             'totalExpenses' => $totalExpenses,
