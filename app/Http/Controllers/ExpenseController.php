@@ -49,15 +49,17 @@ class ExpenseController extends Controller
     }
 
     // edit expense
-    public function edit(Expense $expense)
-    {
+    public function edit($id)
+    {   
+        $expense = Expense::findOrFail($id);
+
         return Inertia::render('Expenses/Edit', [
             'expense' => $expense,
         ]);
     }
 
     // update expense
-    public function update(Request $request, Expense $expense)
+    public function update(Request $request, $id)
     {   
         //validate request
         $request->validate([
@@ -67,7 +69,9 @@ class ExpenseController extends Controller
             'date' => 'required|date',
         ]);
 
-        $expense->update($request->all());
+        $expense = Expense::findOrFail($id);
+        
+        $expense->update($request->only(['date', 'description', 'amount']));
 
         //redirect to index
         return redirect()->route('expenses.index')
@@ -77,6 +81,8 @@ class ExpenseController extends Controller
     // delete expense
     public function destroy(Expense $expense)
     {
+        $expense = Expense::findOrFail($expense->id);
+
         $expense->delete();
 
         return redirect()->route('expenses.index')

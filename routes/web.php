@@ -26,6 +26,10 @@ Route::middleware('auth')->group(function () {
 
     // expenses routes
     Route::resource('expenses', ExpenseController::class)->except(['show']);
+    Route::get('/expenses/{id}/edit', [ExpenseController::class, 'edit'])->name('expenses.edit');
+    Route::put('/expenses/{id}', [ExpenseController::class, 'update'])->name('expenses.update');
+    Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy'])->name('expenses.destroy');
+
 });
 
 require __DIR__.'/auth.php';
