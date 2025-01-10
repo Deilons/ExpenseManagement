@@ -9,13 +9,23 @@ use Inertia\Inertia;
 class ExpenseController extends Controller
 {
     // display all expenses and percentages
-    public function index()
+    public function index(Request $request)
     {
-        $expenses = Expense::orderBy('date', 'desc')->get()->toArray(); // Convertir a array
+        $query = Expense::query();
     
-        // Calculate total expenses
-        $totalExpenses = $expenses ? array_sum(array_column($expenses, 'amount')) : 0; // Sumar montos
-        $percentages = Expense::calculatePercentage(); // Asumimos que esto devuelve un array con porcentajes
+        if ($request->filled('date')) {
+            $query->whereDate('date', $request->date);
+        }
+    
+        if ($request->filled('category')) {
+            $query->where('category', 'like', '%'.$request->category.'%');
+        }
+    
+        $expenses = $query->orderBy('date', 'desc')->get();
+    
+        $totalExpenses = $expenses->sum('amount');
+    
+        $percentages = Expense::calculatePercentage(); 
     
         return Inertia::render('Expenses/Index', [
             'expenses' => $expenses,
@@ -23,6 +33,7 @@ class ExpenseController extends Controller
             'percentages' => $percentages,
         ]);
     }
+    
 
     // create new expense
     public function create()
