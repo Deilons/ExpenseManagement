@@ -59,24 +59,23 @@ class ExpenseController extends Controller
     }
 
     // update expense
-    public function update(Request $request, $id)
-    {   
-        //validate request
-        $request->validate([
-            'description' => 'required',
+    public function update(Request $request, Expense $expense)
+    {
+        // Validate request
+        $validated = $request->validate([
+            'description' => 'required|string|max:255',
             'amount' => 'required|numeric',
-            'category' => 'required',
             'date' => 'required|date',
         ]);
-
-        $expense = Expense::findOrFail($id);
-        
-        $expense->update($request->only(['date', 'description', 'amount']));
-
-        //redirect to index
-        return redirect()->route('expenses.index')
-                        ->with('success', 'Expense updated successfully');
+    
+        // Update expense
+        $expense->update($validated);
+    
+        // Go to index
+        return Inertia::location('/expenses');
     }
+    
+    
 
     // delete expense
     public function destroy(Expense $expense)
