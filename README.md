@@ -1,66 +1,137 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ExpenseManagement
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**ExpenseManagement** is a web application designed for efficient expense management. It allows users to track, filter, and view their expenses, using categories and amount ranges. The project is built with **Laravel 11** for the backend and **React** for the frontend, with **Inertia.js** to provide a seamless experience between both. The user interface incorporates **Lucide** for icons and **Tailwind CSS** for styling.
 
-## About Laravel
+## Technologies Used
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Laravel 11**: PHP framework for the backend.
+- **React**: JavaScript library for building the frontend user interface.
+- **Inertia.js**: A library that enables seamless navigation between the backend and frontend.
+- **Lucide**: Icon library used in the user interface.
+- **Tailwind CSS**: CSS framework for responsive and custom design.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Installation
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Prerequisites
 
-## Learning Laravel
+Before starting, make sure you have the following installed:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **PHP 8.1+** (for Laravel)
+- **Node.js** (for React and Tailwind CSS)
+- **Composer** (for managing PHP dependencies)
+- **NPM or Yarn** (for managing JavaScript dependencies)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Clone the Repository
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+First, clone the repository to your local machine:
 
-## Laravel Sponsors
+```bash
+git clone https://github.com/Deilons/ExpenseManagement.git
+cd ExpenseManagement
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Install Backend Dependencies (Laravel)
 
-### Premium Partners
+Run the following command to install Laravel dependencies:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```bash
+composer install
+```
 
-## Contributing
+### Install Frontend Dependencies (React)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Navigate to the `frontend` folder and run:
 
-## Code of Conduct
+```bash
+npm install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Configure the `.env` File
 
-## Security Vulnerabilities
+Copy the `.env.example` file and rename it to `.env`. Then, configure your environment variables, especially for the database connection:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Add the following database configuration to the `.env` file:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST= bl5eqkbwii9ank6dqgi6-mysql.services.clever-cloud.com
+DB_PORT= 3306
+DB_DATABASE= bl5eqkbwii9ank6dqgi6
+DB_USERNAME= uhb4wtwnr7opet7p
+DB_PASSWORD= B0Bucxg0NnEJPc2LmdnZ
+```
+
+### Database Migration
+
+The project includes migrations, run the following command to migrate the database:
+
+```bash
+php artisan migrate
+```
+
+### Running the Application
+
+To run the application locally, first, start the Laravel server:
+
+```bash
+php artisan serve
+```
+
+Then, in another terminal, start the React development server:
+
+```bash
+npm run dev
+```
+Or use this conmand to run both servers:
+```bash
+composer run dev
+```
+
+Access the application at `http://localhost:8000`.
+
+## Features
+
+1. **User Registration and Login**: Users can register and log in to manage their expenses.
+2. **Expense Management**: Users can add, edit, and delete their expenses.
+3. **Expense Filters**: Expenses can be filtered by date, category, and amount range.
+4. **Expense Summary**: Users can view a summary of their expenses, including visual charts representing the percentage of expenses by category.
+
+## Project Structure
+
+The project structure is as follows:
+
+```
+/ExpenseManagement
+├── /app              # Backend logic (Laravel)
+│   ├── /Http
+│   └── /Models
+├── /frontend         # Frontend logic (React)
+│   ├── /components
+│   └── /pages
+├── /public           # Public files (CSS, JS, images)
+└── /resources        # Laravel views and other resources
+```
+
+## Contribution
+
+To contribute to the project, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature (`git checkout -b feature/my-new-feature`).
+3. Make your changes and commit them (`git commit -am 'Add new feature'`).
+4. Push your branch to the remote repository (`git push origin feature/my-new-feature`).
+5. Open a Pull Request.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
+
+## Author
+
+**David Sánchez Castrillón**  
+Developer and creator of the **ExpenseManagement** project.
