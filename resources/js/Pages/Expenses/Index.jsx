@@ -1,7 +1,15 @@
 import React from 'react';
+import { Inertia } from '@inertiajs/inertia';
 
 const ExpensesIndex = ({ expenses, totalExpenses, percentages }) => {
-    console.log(expenses); // Verifica que los datos son correctos
+    console.log(expenses); 
+
+    // handle delete
+    const handleDelete = (id) => {
+        if (window.confirm('Are you sure you want to delete this expense?')) {
+            Inertia.delete(`/expenses/${id}`);
+        }
+    };
 
     return (
         <div>
@@ -16,7 +24,6 @@ const ExpensesIndex = ({ expenses, totalExpenses, percentages }) => {
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Category</th>
                         <th>Description</th>
                         <th>Amount</th>
                         <th>Actions</th>
@@ -26,10 +33,15 @@ const ExpensesIndex = ({ expenses, totalExpenses, percentages }) => {
                     {Array.isArray(expenses) && expenses.map((expense) => (
                         <tr key={expense.id}>
                             <td>{expense.date}</td>
-                            <td>{expense.category}</td>
                             <td>{expense.description}</td>
                             <td>{expense.amount}</td>
-                            <td></td>
+                            <td>
+                                {/* edit button */}
+                                <button onClick={() => Inertia.visit(`/expenses/${expense.id}/edit`)}>Edit</button>
+                                
+                                {/* delete button */}
+                                <button onClick={() => handleDelete(expense.id)}>Delete</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
