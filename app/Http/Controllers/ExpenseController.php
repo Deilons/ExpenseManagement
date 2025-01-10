@@ -34,18 +34,17 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {   
         //validate request
-        $request->validate([
+        $validated = $request->validate([
             'description' => 'required',
             'amount' => 'required|numeric',
             'category' => 'required',
             'date' => 'required|date',
         ]);
 
-        Expense::create($request->all());
+        Expense::create($validated);
 
         //redirect to index
-        return redirect()->route('expenses.index')
-                        ->with('success', 'Expense created successfully');
+        return Inertia::location('/expenses');
     }
 
     // edit expense

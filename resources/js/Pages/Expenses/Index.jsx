@@ -19,6 +19,12 @@ const ExpensesIndex = ({ expenses, totalExpenses, percentages }) => {
                 This is the expenses index page. You can add, edit, and delete
                 expenses here.
             </p>
+            <p>
+                create a new expense{' '}
+                <button onClick={() => Inertia.visit('/expenses/create')}>
+                    Create
+                </button>
+            </p>
 
             <table>
                 <thead>
