@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const EditExpense = ({ expense }) => {
     const [formData, setFormData] = useState({
@@ -19,10 +20,9 @@ const EditExpense = ({ expense }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Enviar la solicitud de actualización a Laravel
+        // Send the request to Laravel
         Inertia.put(`/expenses/${expense.id}`, formData, {
             onSuccess: () => {
-                // Redirigir a la página de índice después de la actualización exitosa
                 Inertia.visit('/expenses');
             },
             onError: (errors) => {
@@ -33,6 +33,7 @@ const EditExpense = ({ expense }) => {
 
     return (
         <div>
+            <AuthenticatedLayout />
             <h1>Edit Expense</h1>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -52,6 +53,9 @@ const EditExpense = ({ expense }) => {
                         value={formData.amount}
                         onChange={handleInputChange}
                     />
+                </div>
+                <div>
+                    <label>Category</label>
                 </div>
                 <div>
                     <label>Date</label>
